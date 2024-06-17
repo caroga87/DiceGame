@@ -4,4 +4,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Constant {
+
+    //exceptions
+    public static final String playerNotFound = "Player not found with ID: ";
+    public static final String usernameAlreadyExists = "Username already exists: ";
 }

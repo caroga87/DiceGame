@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.UsernameAlreadyExistsException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.mapper.PlayerMapper;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Player;
@@ -7,11 +8,15 @@ import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.PlayerService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -28,7 +33,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public PlayerDTO createPlayer(PlayerDTO playerDTO) {
         if (playerRepository.existsByUsername(playerDTO.getUsername())) {
-            throw new UsernameAlreadyExistsException("Username " + playerDTO.getUsername() + " already exists");
+            throw new UsernameAlreadyExistsException(Constant.usernameAlreadyExists + playerDTO.getUsername());
         }
 
         Player player = playerMapper.toPlayerEntity(playerDTO);
@@ -38,22 +43,38 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<PlayerDTO> getAllPlayers() {
-        return List.of();
+        return playerRepository.findAll().stream()
+                .map (playerMapper :: toPlayerDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<PlayerDTO> getPlayerById(Integer id) {
-        return Optional.empty();
+    public PlayerDTO getPlayerById(Integer id){
+        Player player = playerRepository.findById(id).orElseThrow(() -> new PlayerNotFoundException(Constant.playerNotFound +id));
+        return playerMapper.toPlayerDTO(player);
     }
 
     @Override
-    public PlayerDTO updatePlayerName(Integer id, String newName) {
-        return null;
+    @Transactional // per si hi ha un error a l'hora d'executar els canvis, farà rollback per tal de que no es realitzin canvis parcials a la bd
+    public void updatePlayerName(Integer id, String newName){
+
+        Player player = playerRepository.findById(id).orElseThrow(
+                () -> new PlayerNotFoundException (Constant.playerNotFound +id));
+
+        if (playerRepository.findByNameIgnoreCase(newName).isPresent())
+            throw new UsernameAlreadyExistsException(Constant.usernameAlreadyExists + newName);
+
+        player.setUserName(newName);
+        playerRepository.save(player);
     }
 
     @Override
-    public void deletePlayerGames(Integer id) {
+    @Transactional
+    public void deletePlayer(Integer id) {
+        Player player = playerRepository.findById(id).orElseThrow(
+                () -> new PlayerNotFoundException (Constant.playerNotFound +id));
 
+        playerRepository.deleteById(id);
     }
 
     @Override
@@ -64,5 +85,15 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public double calculateAverageSuccessPercentage() {
         return 0;
+    }
+
+    @Override
+    public List<PlayerDTO> playerRankingList() {
+        List<PlayerDTO> players = getAllPlayers();
+        return players.stream()
+                .filter(player -> player.getPercentageWonGame() != null ) // per a que no tingui en compte jugador amb percentatges nulls
+                .sorted(Comparator.comparingDouble(PlayerDTO::getPercentageWonGame).reversed()) // Ordena de major a menor
+                .collect(Collectors.toList());
+
     }
 }

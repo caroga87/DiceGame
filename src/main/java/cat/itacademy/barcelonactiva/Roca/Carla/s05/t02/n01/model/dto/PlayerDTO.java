@@ -13,7 +13,7 @@ public class PlayerDTO {
     private String name;
     private String username;
     private List<GameDTO> rollDice;
-    private double percentageWonGame;
+    private Double percentageWonGame;
 
     public void calculationPercentageWin () {
         percentageWonGame = rollDice.isEmpty() ? 0 : Math.round((percentageWonGame()) * 100.0)/100.0;

@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.mapper;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Game;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Player;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
@@ -22,17 +23,12 @@ public class PlayerMapper {
         return playerDTO;
     }
 
-    public Player toPlayerEntity (PlayerDTO playerDTO){
-        if (playerDTO != null){
-            Player player = Player.builder()
-                    .player_id(playerDTO.getId())
-                    .name(playerDTO.getName())
-                    .userName(playerDTO.getUsername())
-                    .registrationDate(pl)
-                    .rollDice(playerDTO.getRollDice().stream().map(gameMapper :: to))
-                    .build();
+    public Player toPlayerEntity (PlayerDTO playerDTO) {
+       Player player = null;
+        if (playerDTO != null) {
+            player = createPlayerEntity(playerDTO);
         }
-
+        return player;
     }
 
 

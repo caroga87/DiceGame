@@ -9,10 +9,11 @@ public interface PlayerService {
 
     PlayerDTO createPlayer(PlayerDTO playerDTO);
     List<PlayerDTO> getAllPlayers();
-    Optional<PlayerDTO> getPlayerById(Integer id);
-    PlayerDTO updatePlayerName(Integer id, String newName);
-    void deletePlayerGames(Integer id);
+    PlayerDTO getPlayerById(Integer id);
+    void updatePlayerName(Integer id, String newName);
+    void deletePlayer(Integer id);
     double calculateSuccessPercentage(PlayerDTO playerDTO);
     double calculateAverageSuccessPercentage();
+    List <PlayerDTO> playerRankingList();
 
 }
