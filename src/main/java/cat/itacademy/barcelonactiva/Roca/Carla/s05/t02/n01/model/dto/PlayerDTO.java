@@ -11,7 +11,7 @@ public class PlayerDTO {
 
     private Integer id;
     private String name;
-    private String userName;
+    private String username;
     private List<GameDTO> rollDice;
     private double percentageWonGame;
 

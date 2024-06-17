@@ -29,11 +29,11 @@ public class Game {
     private boolean win;
 
     @ManyToOne
-    @JoinColumn (name= "player_Id", nullable = false)
+    @JoinColumn (name= "player_id", nullable = false)
     private Player player;
 
 
-    //metode per crear una jugada, al main es cridaria com a Game game = Game.rollDice(player)
+    //metode per crear una jugada, al main es cridaria com a Game game = Game.createGame(player)
     public static Game createGame(Player player) {
         Random random = new Random();
         int die1 = random.nextInt(6) + 1;

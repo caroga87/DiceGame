@@ -19,12 +19,12 @@ public class Player {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer player_Id;
+    private Integer player_id;
 
     @Builder.Default
     private String name = "ANONYMOUS";
 
-    @Column (name= "userName")
+    @Column (name= "username")
     private String userName;
 
     @Builder.Default

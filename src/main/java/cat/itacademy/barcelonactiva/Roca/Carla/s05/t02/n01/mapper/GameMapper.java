@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class GameMapper {
     public GameDTO toGameDTO (Game game) {
-        GameDTO gameDTO = null;
-        if (game !=null) gameDTO = createGameDTO (game);
-        return gameDTO;
+        return game != null ? createGameDTO(game) : null;
+    }
+
+    public Game toGameEntity (GameDTO gameDTO){
+        return gameDTO !=null ? createGameEntity(gameDTO) : null;
     }
 
     private GameDTO createGameDTO (Game game){
@@ -17,6 +19,14 @@ public class GameMapper {
                 .die1(game.getDie1())
                 .die2(game.getDie2())
                 .wonGame(game.isWin())
+                .build();
+    }
+
+    private Game createGameEntity (GameDTO gameDTO){
+        return Game.rollDice()
+                .die1(gameDTO.getDie1())
+                .die2(gameDTO.getDie2())
+                .win(gameDTO.isWonGame())
                 .build();
     }
 }
