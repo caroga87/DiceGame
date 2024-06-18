@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 public class Constant {
 
     //exceptions
-    public static final String playerNotFound = "Player not found with ID: ";
-    public static final String usernameAlreadyExists = "Username already exists: ";
+    public static final String PLAYER_NOT_FOUND = "Player not found with ID: ";
+    public static final String USERNAME_ALREADY_EXISTS = "Username already exists: ";
 
     //URL's
-    public static final String home = "/players";
-    public static final String update = "/{id}";
-    public static final String createGame ="/{id}/games";
-    public static final String deleteGame="/{id}/games";
-    public static final String playerGame ="/{id}/games";
-    public static final String ranking ="/ranking";
-    public static final String bestPlayer ="/ranking/winner";
-    public static final String worstplayer ="/ranking/loser";
+    public static final String HOME = "/players";
+    public static final String UPDATE = "/{id}";
+    public static final String CREATE_GAME ="/{id}/games";
+    public static final String DELETE_GAME ="/{id}/games";
+    public static final String PLAYER_GAME ="/{id}/games";
+    public static final String RANKING ="/RANKING";
+    public static final String BEST_PLAYER ="/RANKING/winner";
+    public static final String WORST_PLAYER ="/RANKING/loser";
 }

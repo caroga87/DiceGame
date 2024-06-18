@@ -33,7 +33,7 @@ public class Game {
     private Player player;
 
 
-    //metode per crear una jugada, al main es cridaria com a Game game = Game.createGame(player)
+    //metode per crear una jugada, al main es cridaria com a Game game = Game.CREATE_GAME(player)
     public static Game createGame(Player player) {
         Random random = new Random();
         int die1 = random.nextInt(6) + 1;

@@ -25,7 +25,7 @@ public class Player {
     private String name = "ANONYMOUS";
 
     @Column (name= "username")
-    private String userName;
+    private String username;
 
     @Builder.Default
     @Column (name = "registrationDate")

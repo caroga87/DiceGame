@@ -38,7 +38,7 @@ public class PlayerMapper {
                 .id(player.getPlayer_id())
                 .name(player.getName())
                 .rollDice(rollDice)
-                .username(player.getUserName())
+                .username(player.getUsername())
                 .build();
 
     }
@@ -48,7 +48,7 @@ public class PlayerMapper {
         return Player.builder()
                 .player_id(playerDTO.getId())
                 .name(playerDTO.getName())
-                .userName(playerDTO.getUsername())
+                .username(playerDTO.getUsername())
                 .rollDice(rollDice)
                 .build();
     }

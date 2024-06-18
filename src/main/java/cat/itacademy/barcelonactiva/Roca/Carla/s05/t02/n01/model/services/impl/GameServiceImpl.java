@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +31,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public GameDTO createGame(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
-                () -> new PlayerNotFoundException(Constant.playerNotFound +player_id));
+                () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
         Game game = Game.createGame(player);
         Game savedGame = gameRepository.save(game);
         return gameMapper.toGameDTO(savedGame);
@@ -41,7 +40,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<GameDTO> getGamesById(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
-                () -> new PlayerNotFoundException(Constant.playerNotFound +player_id));
+                () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
         return gameRepository.findByPlayer(player).stream()
                 .map(gameMapper::toGameDTO)
                 .collect(Collectors.toList());
@@ -51,7 +50,7 @@ public class GameServiceImpl implements GameService {
     @Transactional
     public void deleteGameById(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
-                () -> new PlayerNotFoundException(Constant.playerNotFound +player_id));
+                () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
         gameRepository.deleteByPlayer(player);
     }
 

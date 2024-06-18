@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping (Constant.home)
+@RequestMapping (Constant.HOME)
 public class DiceGameController {
     @Autowired
     private  PlayerService playerService;
@@ -26,19 +26,19 @@ public class DiceGameController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPlayer);
     }
 
-    @PutMapping (Constant.update)
+    @PutMapping (Constant.UPDATE)
     public ResponseEntity <Void> updatePlayerName (@PathVariable Integer id, @RequestBody String newName){
         playerService.updatePlayerName(id, newName);
         return ResponseEntity.noContent().build(); // ResponseEntity.status (HttpStatus.OK).body(
     }
 
-    @PostMapping(Constant.createGame)
+    @PostMapping(Constant.CREATE_GAME)
     public ResponseEntity<GameDTO> createGame(@PathVariable Integer id) {
         GameDTO createdGame = gameService.createGame(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGame);
     }
 
-    @DeleteMapping(Constant.deleteGame)
+    @DeleteMapping(Constant.DELETE_GAME)
     public ResponseEntity<Void> deleteGamesByPlayerId(@PathVariable Integer id) {
         gameService.deleteGameById(id);
         return ResponseEntity.noContent().build();
@@ -50,25 +50,25 @@ public class DiceGameController {
         return ResponseEntity.ok(players);
     }
 
-    @GetMapping(Constant.playerGame)
+    @GetMapping(Constant.PLAYER_GAME)
     public ResponseEntity<List<GameDTO>> getGamesByPlayerId(@PathVariable Integer id) {
         List<GameDTO> games = gameService.getGamesById(id);
         return ResponseEntity.ok(games);
     }
 
-    @GetMapping(Constant.ranking)
+    @GetMapping(Constant.RANKING)
     public ResponseEntity<Double> getAverageSuccessRate() {
         double averageSuccessRate = playerService.getAllPlayersAverage();
         return ResponseEntity.ok(averageSuccessRate);
     }
 
-    @GetMapping(Constant.worstplayer)
+    @GetMapping(Constant.WORST_PLAYER)
     public ResponseEntity<PlayerDTO> getWorstPlayer() {
         PlayerDTO worstPlayer = playerService.getWorstPlayerDTO();
         return ResponseEntity.ok(worstPlayer);
     }
 
-    @GetMapping(Constant.bestPlayer)
+    @GetMapping(Constant.BEST_PLAYER)
     public ResponseEntity<PlayerDTO> getBestPlayer() {
         PlayerDTO bestPlayer = playerService.getBestPlayerDTO();
         return ResponseEntity.ok(bestPlayer);

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public PlayerDTO createPlayer(PlayerDTO playerDTO) {
         if (playerRepository.existsByUsername(playerDTO.getUsername())) {
-            throw new UsernameAlreadyExistsException(Constant.usernameAlreadyExists + playerDTO.getUsername());
+            throw new UsernameAlreadyExistsException(Constant.USERNAME_ALREADY_EXISTS + playerDTO.getUsername());
         }
 
         Player player = playerMapper.toPlayerEntity(playerDTO);
@@ -50,7 +49,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO getPlayerById(Integer id){
-        Player player = playerRepository.findById(id).orElseThrow(() -> new PlayerNotFoundException(Constant.playerNotFound +id));
+        Player player = playerRepository.findById(id).orElseThrow(() -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +id));
         return playerMapper.toPlayerDTO(player);
     }
 
@@ -59,12 +58,12 @@ public class PlayerServiceImpl implements PlayerService {
     public void updatePlayerName(Integer id, String newName){
 
         Player player = playerRepository.findById(id).orElseThrow(
-                () -> new PlayerNotFoundException (Constant.playerNotFound +id));
+                () -> new PlayerNotFoundException (Constant.PLAYER_NOT_FOUND +id));
 
         if (playerRepository.findByNameIgnoreCase(newName).isPresent())
-            throw new UsernameAlreadyExistsException(Constant.usernameAlreadyExists + newName);
+            throw new UsernameAlreadyExistsException(Constant.USERNAME_ALREADY_EXISTS + newName);
 
-        player.setUserName(newName);
+        player.setUsername(newName);
         playerRepository.save(player);
     }
 
@@ -72,7 +71,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Transactional
     public void deletePlayer(Integer id) {
         Player player = playerRepository.findById(id).orElseThrow(
-                () -> new PlayerNotFoundException (Constant.playerNotFound +id));
+                () -> new PlayerNotFoundException (Constant.PLAYER_NOT_FOUND +id));
 
         playerRepository.deleteById(id);
     }
@@ -101,10 +100,10 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO getBestPlayerDTO () {
-        return playerRankingList().getFirst();
+        return playerRankingList().get(0);
     }
     @Override
     public PlayerDTO getWorstPlayerDTO () {
-        return playerRankingList().getLast();
+        return playerRankingList().get(playerRankingList().size()-1);
     }
 }
