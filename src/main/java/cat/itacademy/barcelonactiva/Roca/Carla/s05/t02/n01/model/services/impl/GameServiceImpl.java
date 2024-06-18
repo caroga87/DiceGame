@@ -8,6 +8,7 @@ import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.GameService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public GameDTO createGame(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
-                () -> new PlayerNotFoundException("Player with ID " + player_id + " not found"));
+                () -> new PlayerNotFoundException(Constant.playerNotFound +player_id));
         Game game = Game.createGame(player);
         Game savedGame = gameRepository.save(game);
         return gameMapper.toGameDTO(savedGame);
@@ -40,7 +41,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<GameDTO> getGamesById(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
-                () -> new PlayerNotFoundException("Player with ID " + player_id + " not found"));
+                () -> new PlayerNotFoundException(Constant.playerNotFound +player_id));
         return gameRepository.findByPlayer(player).stream()
                 .map(gameMapper::toGameDTO)
                 .collect(Collectors.toList());
@@ -50,7 +51,7 @@ public class GameServiceImpl implements GameService {
     @Transactional
     public void deleteGameById(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
-                () -> new PlayerNotFoundException("Player with ID " + player_id + " not found"));
+                () -> new PlayerNotFoundException(Constant.playerNotFound +player_id));
         gameRepository.deleteByPlayer(player);
     }
 

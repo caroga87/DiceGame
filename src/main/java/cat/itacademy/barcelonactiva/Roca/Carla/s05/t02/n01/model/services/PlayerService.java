@@ -12,8 +12,9 @@ public interface PlayerService {
     PlayerDTO getPlayerById(Integer id);
     void updatePlayerName(Integer id, String newName);
     void deletePlayer(Integer id);
-    double calculateSuccessPercentage(PlayerDTO playerDTO);
-    double calculateAverageSuccessPercentage();
     List <PlayerDTO> playerRankingList();
+    Double getAllPlayersAverage ();
+    PlayerDTO getBestPlayerDTO ();
+    PlayerDTO getWorstPlayerDTO ();
 
 }

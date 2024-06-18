@@ -78,22 +78,33 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public double calculateSuccessPercentage(PlayerDTO playerDTO) {
-        return 0;
-    }
-
-    @Override
-    public double calculateAverageSuccessPercentage() {
-        return 0;
-    }
-
-    @Override
     public List<PlayerDTO> playerRankingList() {
         List<PlayerDTO> players = getAllPlayers();
         return players.stream()
-                .filter(player -> player.getPercentageWonGame() != null ) // per a que no tingui en compte jugador amb percentatges nulls
+                .filter(player -> player.getPercentageWonGame() != null) // per a que no tingui en compte jugador amb percentatges nulls
                 .sorted(Comparator.comparingDouble(PlayerDTO::getPercentageWonGame).reversed()) // Ordena de major a menor
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public Double getAllPlayersAverage () {
+        List <PlayerDTO> players = getAllPlayers();
+        if (players.isEmpty()){
+            return 0.0;
+        }
+        return   players.stream()
+                .mapToDouble(player -> player.getPercentageWonGame() != null ? player.getPercentageWonGame() : 0.0)
+                .average()
+                .orElse(0.0);
+
+    }
+
+    @Override
+    public PlayerDTO getBestPlayerDTO () {
+        return playerRankingList().getFirst();
+    }
+    @Override
+    public PlayerDTO getWorstPlayerDTO () {
+        return playerRankingList().getLast();
     }
 }
