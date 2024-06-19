@@ -20,7 +20,7 @@ public class DiceGameController {
     @Autowired
     private  GameService gameService;
 
-    @PostMapping
+    @PostMapping (Constant.CREATE_PLAYER)
     public ResponseEntity <PlayerDTO> createPlayer (@RequestBody PlayerDTO playerDTO){
         PlayerDTO createdPlayer = playerService.createPlayer(playerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPlayer);

@@ -19,7 +19,7 @@ public class Player {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer player_id;
+    private Integer playerId;
 
     @Builder.Default
     private String name = "ANONYMOUS";
@@ -28,7 +28,7 @@ public class Player {
     private String username;
 
     @Builder.Default
-    @Column (name = "registrationDate")
+    @Column (name = "registration_date", nullable = false, updatable = false)
     private LocalDateTime registrationDate= LocalDateTime.now();
 
     @Builder.Default

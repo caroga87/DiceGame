@@ -11,11 +11,15 @@ public class Constant {
 
     //URL's
     public static final String HOME = "/players";
+    public static final String CREATE_PLAYER="/create";
     public static final String UPDATE = "/{id}";
     public static final String CREATE_GAME ="/{id}/games";
     public static final String DELETE_GAME ="/{id}/games";
     public static final String PLAYER_GAME ="/{id}/games";
-    public static final String RANKING ="/RANKING";
-    public static final String BEST_PLAYER ="/RANKING/winner";
-    public static final String WORST_PLAYER ="/RANKING/loser";
+    public static final String RANKING ="/ranking";
+    public static final String BEST_PLAYER ="/ranking/winner";
+    public static final String WORST_PLAYER ="/ranking/loser";
+
+    //JWT
+    public static final String SECRET_KEY = "aGFuZHBvdHVuaXRvZmZpY2Vyc2hpbm5pbmdwaHlzaWNhbHRocm93bmF3YXljb29rbGE=";
 }

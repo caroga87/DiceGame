@@ -35,7 +35,7 @@ public class PlayerMapper {
     private PlayerDTO createPlayerDTO (Player player){
         List< GameDTO> rollDice = player.getRollDice().stream().map(game -> gameMapper.toGameDTO (game)).toList();
         return PlayerDTO.builder()
-                .id(player.getPlayer_id())
+                .id(player.getPlayerId())
                 .name(player.getName())
                 .rollDice(rollDice)
                 .username(player.getUsername())
@@ -46,7 +46,7 @@ public class PlayerMapper {
     private Player createPlayerEntity (PlayerDTO playerDTO){
         List <Game> rollDice = playerDTO.getRollDice().stream().map(gameDTO -> gameMapper.toGameEntity(gameDTO)).toList();
         return Player.builder()
-                .player_id(playerDTO.getId())
+                .playerId(playerDTO.getId())
                 .name(playerDTO.getName())
                 .username(playerDTO.getUsername())
                 .rollDice(rollDice)

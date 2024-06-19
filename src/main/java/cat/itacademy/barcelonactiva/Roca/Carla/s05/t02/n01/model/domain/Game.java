@@ -18,7 +18,7 @@ public class Game {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer game_Id;
+    private Integer gameId;
 
     @Column (name= "first_die")
     private int die1;
@@ -29,7 +29,7 @@ public class Game {
     private boolean win;
 
     @ManyToOne
-    @JoinColumn (name= "player_id", nullable = false)
+    @JoinColumn (name= "playerId", nullable = false)
     private Player player;
 
 
