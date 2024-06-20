@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services;
 
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import io.jsonwebtoken.Claims;
@@ -30,7 +30,7 @@ public class JwtService {
                 .setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
 

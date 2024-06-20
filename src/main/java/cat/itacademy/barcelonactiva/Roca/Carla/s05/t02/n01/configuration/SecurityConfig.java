@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -22,14 +25,24 @@ public class SecurityConfig {
     @Autowired
     private AuthenticationProvider authenticationProvider;
 
-    @Bean
+    @Bean //cadena de filtrado antes del proceso de verificación
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable())
-                .authorizeRequests(auth -> auth.requestMatchers("").permitAll()
+                .authorizeRequests(auth -> auth.requestMatchers(publicEndpoint()).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
+
+    private RequestMatcher publicEndpoint (){
+        return new OrRequestMatcher(
+                new AntPathRequestMatcher(("Urls permitidas")),
+                new AntPathRequestMatcher("/players/auth/**")
+        );
+
+    }
+
+
 }

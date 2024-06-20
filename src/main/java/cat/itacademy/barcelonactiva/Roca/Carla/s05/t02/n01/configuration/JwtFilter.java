@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
