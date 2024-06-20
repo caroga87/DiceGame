@@ -19,7 +19,12 @@ public class Constant {
     public static final String RANKING ="/ranking";
     public static final String BEST_PLAYER ="/ranking/winner";
     public static final String WORST_PLAYER ="/ranking/loser";
+    public static final String LOGIN = "/login";
+    public static final String REGISTER = "/register";
+    public static final String AUTHENTICATION = "/auth";
+    public static final String AVERAGE_SUCCES = "/average";
 
     //JWT
     public static final String SECRET_KEY = "aGFuZHBvdHVuaXRvZmZpY2Vyc2hpbm5pbmdwaHlzaWNhbHRocm93bmF3YXljb29rbGE=";
+    public static final int TOKEN_EXPIRATION_TIME = 24*60*60*1000;
 }

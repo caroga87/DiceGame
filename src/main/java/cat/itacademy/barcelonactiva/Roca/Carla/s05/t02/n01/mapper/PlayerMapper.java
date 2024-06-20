@@ -47,7 +47,7 @@ public class PlayerMapper {
         List <Game> rollDice = playerDTO.getRollDice().stream().map(gameDTO -> gameMapper.toGameEntity(gameDTO)).toList();
         return Player.builder()
                 .playerId(playerDTO.getId())
-                .name(playerDTO.getName())
+                .name(playerDTO.getName() !=null ? playerDTO.getName() : "ANONYMOUS")
                 .username(playerDTO.getUsername())
                 .rollDice(rollDice)
                 .build();

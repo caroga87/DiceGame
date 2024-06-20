@@ -42,6 +42,7 @@ public class Game {
         return Game.rollDice()
                 .die1(die1)
                 .die2 (die2)
+                .win(win)
                 .player(player)
                 .build();
 

@@ -56,11 +56,18 @@ public class DiceGameController {
         return ResponseEntity.ok(games);
     }
 
-    @GetMapping(Constant.RANKING)
+    @GetMapping(Constant.AVERAGE_SUCCES)
     public ResponseEntity<Double> getAverageSuccessRate() {
         double averageSuccessRate = playerService.getAllPlayersAverage();
         return ResponseEntity.ok(averageSuccessRate);
     }
+
+    @GetMapping(Constant.RANKING)
+    public ResponseEntity<List<PlayerDTO>> getPlayerRankingList() {
+        List<PlayerDTO> playerRankingList = playerService.playerRankingList();
+        return ResponseEntity.ok(playerRankingList);
+    }
+
 
     @GetMapping(Constant.WORST_PLAYER)
     public ResponseEntity<PlayerDTO> getWorstPlayer() {

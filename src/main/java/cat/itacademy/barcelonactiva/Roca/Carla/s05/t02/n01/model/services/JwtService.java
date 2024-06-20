@@ -19,8 +19,6 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = Constant.SECRET_KEY; // no es recomendable ponerla aquí
-
     public String generateToken (UserDetails userDetails){
         return generateToken(new HashMap<>(), userDetails);
     }
@@ -30,7 +28,7 @@ public class JwtService {
                 .setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24))
+                .setExpiration(new Date(System.currentTimeMillis() + Constant.TOKEN_EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
 
@@ -52,7 +50,7 @@ public class JwtService {
                 .getBody();
     }
     private Key getSigningKey () {
-        byte [] keyBites  = Decoders.BASE64.decode(SECRET_KEY);
+        byte [] keyBites  = Decoders.BASE64.decode(Constant.SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBites);
     }
 
