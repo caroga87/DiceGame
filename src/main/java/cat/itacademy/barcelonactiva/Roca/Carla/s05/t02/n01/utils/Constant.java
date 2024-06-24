@@ -8,6 +8,7 @@ public class Constant {
     //exceptions
     public static final String PLAYER_NOT_FOUND = "Player not found with ID: ";
     public static final String USERNAME_ALREADY_EXISTS = "Username already exists: ";
+    public static final String USERNAME_NOT_FOUND= "User not found with username: ";
 
     //URL's
     public static final String HOME = "/players";
@@ -22,9 +23,11 @@ public class Constant {
     public static final String LOGIN = "/login";
     public static final String REGISTER = "/register";
     public static final String AUTHENTICATION = "/auth";
-    public static final String AVERAGE_SUCCES = "/average";
+    public static final String AVERAGE_SUCCESS = "/average";
 
     //JWT
-    public static final String SECRET_KEY = "aGFuZHBvdHVuaXRvZmZpY2Vyc2hpbm5pbmdwaHlzaWNhbHRocm93bmF3YXljb29rbGE=";
     public static final int TOKEN_EXPIRATION_TIME = 24*60*60*1000;
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER_PREFIX = "Bearer";
+    public static final String [] AUTH_WHITELIST = { "/register" , "/login"};
 }

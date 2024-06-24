@@ -1,7 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,10 +20,11 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
-    @Autowired
-    private JwtFilter jwtFilter;
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+
+
+    private final JwtFilter jwtFilter;
+
+    private final AuthenticationProvider authenticationProvider;
 
     @Bean //cadena de filtrado antes del proceso de verificación
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {

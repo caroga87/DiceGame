@@ -56,7 +56,7 @@ public class DiceGameController {
         return ResponseEntity.ok(games);
     }
 
-    @GetMapping(Constant.AVERAGE_SUCCES)
+    @GetMapping(Constant.AVERAGE_SUCCESS)
     public ResponseEntity<Double> getAverageSuccessRate() {
         double averageSuccessRate = playerService.getAllPlayersAverage();
         return ResponseEntity.ok(averageSuccessRate);
