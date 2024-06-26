@@ -1,15 +1,16 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.EmailAlreadyExists;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.InvalidCredentialException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Role;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.JwtService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.AuthResponse;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.AuthenticationRequest;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.RegisterRequest;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Role;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.User;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,12 +31,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse register(RegisterRequest request) {
-        var user = User.builder()
+        if (userRepository.existsByEmail(request.getEmail())){
+            throw new EmailAlreadyExists("This email already exists");
+        }
+        User user = User.builder()
                 .name(request.getName())
-                .username(request.getUsername())
+                //.username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role((request.getName().startsWith("admin") ? Role.ADMIN : Role.USER))
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -48,10 +52,10 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
+                request.getEmail(),
                 request.getPassword()
         ));
-        var user = userRepository.findUserByUsername(request.getUsername()).orElseThrow();
+        var user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(()-> new InvalidCredentialException("Invalid email or password"));
         var jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder().token(jwtToken).build();
 

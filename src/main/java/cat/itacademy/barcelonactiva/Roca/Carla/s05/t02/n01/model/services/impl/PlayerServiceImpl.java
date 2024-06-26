@@ -7,6 +7,7 @@ import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Player;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.PlayerRepository;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.PlayerService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import jakarta.transaction.Transactional;
@@ -27,10 +28,13 @@ public class PlayerServiceImpl implements PlayerService {
     private PlayerMapper playerMapper;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private GameRepository gameRepository;
 
     @Override
-    public PlayerDTO createPlayer(PlayerDTO playerDTO) {
+    public PlayerDTO createPlayer(PlayerDTO playerDTO)  {
         if (playerRepository.existsByUsername(playerDTO.getUsername())) {
             throw new UsernameAlreadyExistsException(Constant.USERNAME_ALREADY_EXISTS + playerDTO.getUsername());
         }
@@ -55,15 +59,15 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @Transactional // per si hi ha un error a l'hora d'executar els canvis, farà rollback per tal de que no es realitzin canvis parcials a la bd
-    public void updatePlayerName(Integer id, String newName){
+    public void updatePlayerUsername(Integer id, String newUsername){
 
         Player player = playerRepository.findById(id).orElseThrow(
                 () -> new PlayerNotFoundException (Constant.PLAYER_NOT_FOUND +id));
 
-        if (playerRepository.findByNameIgnoreCase(newName).isPresent())
-            throw new UsernameAlreadyExistsException(Constant.USERNAME_ALREADY_EXISTS + newName);
+        if (playerRepository.findByUsernameIgnoreCase(newUsername).isPresent())
+            throw new UsernameAlreadyExistsException(Constant.USERNAME_ALREADY_EXISTS + newUsername);
 
-        player.setUsername(newName);
+        player.setUsername(newUsername);
         playerRepository.save(player);
     }
 

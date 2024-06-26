@@ -21,11 +21,12 @@ public class Player {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer playerId;
 
-    @Builder.Default
-    private String name = "ANONYMOUS";
+    //@Builder.Default
+    //private String name = "ANONYMOUS";
 
+    @Builder.Default
     @Column (name= "username")
-    private String username;
+    private String username= "ANONYMOUS";
 
     @Builder.Default
     @Column (name = "registration_date", nullable = false, updatable = false)
@@ -34,5 +35,9 @@ public class Player {
     @Builder.Default
     @OneToMany (mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Game> rollDice= new ArrayList<>();
+
+//    @ManyToOne
+//    @JoinColumn (name = "user_id", referencedColumnName = "userId")
+//    private User user;
 
 }

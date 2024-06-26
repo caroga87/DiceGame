@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface PlayerRepository extends JpaRepository <Player, Integer> {
 
-    Optional <Player> findByNameIgnoreCase (String name);
+    Optional <Player> findByUsernameIgnoreCase(String username);
     boolean existsByUsername (String username);
 
 

@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.controllers;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.NoPermissions;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.GameService;
@@ -8,6 +9,8 @@ import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,21 +30,32 @@ public class DiceGameController {
     }
 
     @PutMapping (Constant.UPDATE)
-    public ResponseEntity <Void> updatePlayerName (@PathVariable Integer id, @RequestBody String newName){
-        playerService.updatePlayerName(id, newName);
+    public ResponseEntity <Void> updatePlayerName (@PathVariable Integer playerId, @RequestBody String newName){
+        playerService.updatePlayerUsername(playerId, newName);
         return ResponseEntity.noContent().build(); // ResponseEntity.status (HttpStatus.OK).body(
     }
 
     @PostMapping(Constant.CREATE_GAME)
-    public ResponseEntity<GameDTO> createGame(@PathVariable Integer id) {
-        GameDTO createdGame = gameService.createGame(id);
+    public ResponseEntity<GameDTO> createGame(@PathVariable Integer playerId) {
+        GameDTO createdGame = gameService.createGame(playerId);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGame);
     }
 
     @DeleteMapping(Constant.DELETE_GAME)
-    public ResponseEntity<Void> deleteGamesByPlayerId(@PathVariable Integer id) {
-        gameService.deleteGameById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteGamesByPlayerId(@PathVariable Integer playerId, Authentication authentication) {
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+            throw new NoPermissions("You don't have permissions");
+        }
+        gameService.deleteGameById(playerId);
+        return new ResponseEntity<>("Games deleted.", HttpStatus.OK);
+    }
+    @DeleteMapping(Constant.DELETE_PLAYER)
+    public ResponseEntity<?> deletePlayerById(@PathVariable Integer playerId, Authentication authentication) {
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+            throw new NoPermissions("You don't have permissions");
+        }
+        playerService.deletePlayer(playerId);
+        return new ResponseEntity<>("Player deleted.", HttpStatus.OK);
     }
 
     @GetMapping
@@ -51,8 +65,8 @@ public class DiceGameController {
     }
 
     @GetMapping(Constant.PLAYER_GAME)
-    public ResponseEntity<List<GameDTO>> getGamesByPlayerId(@PathVariable Integer id) {
-        List<GameDTO> games = gameService.getGamesById(id);
+    public ResponseEntity<List<GameDTO>> getGamesByPlayerId(@PathVariable Integer playerId) {
+        List<GameDTO> games = gameService.getGamesById(playerId);
         return ResponseEntity.ok(games);
     }
 

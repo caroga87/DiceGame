@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.GameNotFound;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.mapper.GameMapper;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Game;
@@ -34,6 +35,8 @@ public class GameServiceImpl implements GameService {
                 () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
         Game game = Game.createGame(player);
         Game savedGame = gameRepository.save(game);
+        player.getRollDice().add(savedGame);
+        playerRepository.save(player);
         return gameMapper.toGameDTO(savedGame);
     }
 
@@ -41,6 +44,10 @@ public class GameServiceImpl implements GameService {
     public List<GameDTO> getGamesById(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
                 () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
+        List <Game> games = gameRepository.findByPlayer(player);
+        if (games.isEmpty()){
+            throw new GameNotFound("This player has not games");
+        }
         return gameRepository.findByPlayer(player).stream()
                 .map(gameMapper::toGameDTO)
                 .collect(Collectors.toList());
@@ -51,6 +58,10 @@ public class GameServiceImpl implements GameService {
     public void deleteGameById(Integer player_id) {
         Player player = playerRepository.findById(player_id).orElseThrow(
                 () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
+        List <Game> games = gameRepository.findByPlayer(player);
+        if (games.isEmpty()){
+            throw new GameNotFound("This player has not games");
+        }
         gameRepository.deleteByPlayer(player);
     }
 

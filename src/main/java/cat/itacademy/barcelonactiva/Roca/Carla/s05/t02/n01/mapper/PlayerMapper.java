@@ -7,6 +7,7 @@ import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 @Component
 public class PlayerMapper {
@@ -32,23 +33,24 @@ public class PlayerMapper {
     }
 
 
-    private PlayerDTO createPlayerDTO (Player player){
-        List< GameDTO> rollDice = player.getRollDice().stream().map(game -> gameMapper.toGameDTO (game)).toList();
+    private PlayerDTO createPlayerDTO(Player player) {
+        List<GameDTO> rollDice = player.getRollDice() != null ? player.getRollDice().stream()
+                .map(game -> gameMapper.toGameDTO(game))
+                .toList() : new ArrayList<>();
         return PlayerDTO.builder()
                 .id(player.getPlayerId())
-                .name(player.getName())
                 .rollDice(rollDice)
                 .username(player.getUsername())
                 .build();
-
     }
 
-    private Player createPlayerEntity (PlayerDTO playerDTO){
-        List <Game> rollDice = playerDTO.getRollDice().stream().map(gameDTO -> gameMapper.toGameEntity(gameDTO)).toList();
+    private Player createPlayerEntity(PlayerDTO playerDTO) {
+        List<Game> rollDice = playerDTO.getRollDice() != null ? playerDTO.getRollDice().stream()
+                .map(gameDTO -> gameMapper.toGameEntity(gameDTO))
+                .toList() : new ArrayList<>();
         return Player.builder()
                 .playerId(playerDTO.getId())
-                .name(playerDTO.getName() !=null ? playerDTO.getName() : "ANONYMOUS")
-                .username(playerDTO.getUsername())
+                .username(playerDTO.getUsername() != null ? playerDTO.getUsername() : "ANONYMOUS")
                 .rollDice(rollDice)
                 .build();
     }

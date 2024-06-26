@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
 
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.UserNotFound;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,9 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService (){
-        return username -> userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(Constant.USERNAME_NOT_FOUND +username));
+//        return username -> userRepository.findUserByUsername(username)
+//                .orElseThrow(() -> new UsernameNotFoundException(Constant.USERNAME_NOT_FOUND +username));
+        return email -> userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFound("Not user found with this email"));
     }
 
     @Bean
