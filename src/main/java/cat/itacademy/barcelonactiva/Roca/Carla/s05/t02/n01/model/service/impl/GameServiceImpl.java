@@ -1,14 +1,14 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.impl;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.GameNotFoundException;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.PlayerNotFoundException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.GameNotFoundException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.mapper.GameMapper;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Game;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Player;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.PlayerRepository;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.GameService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.GameService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

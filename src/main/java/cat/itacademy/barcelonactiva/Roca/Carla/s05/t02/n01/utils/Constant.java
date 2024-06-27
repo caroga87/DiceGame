@@ -21,7 +21,7 @@ public class Constant {
     public static final String CREATE_GAME ="/{playerId}/games";
     public static final String DELETE_GAME ="/{playerId}/games";
     public static final String PLAYER_GAME ="/{playerId}/games";
-    public static final String DELETE_PLAYER = "/delete/{id}";
+    public static final String DELETE_PLAYER = "/delete/{playerId}";
     public static final String RANKING ="/ranking";
     public static final String BEST_PLAYER ="/ranking/winner";
     public static final String WORST_PLAYER ="/ranking/loser";

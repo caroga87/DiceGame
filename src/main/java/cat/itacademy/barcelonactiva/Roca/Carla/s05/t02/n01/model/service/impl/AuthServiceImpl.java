@@ -1,15 +1,15 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.impl;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.EmailAlreadyExistsException;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.InvalidCredentialException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.EmailAlreadyExistsException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.InvalidCredentialException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Role;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.JwtService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.JwtService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.response.AuthResponse;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.AuthenticationRequest;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.RegisterRequest;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.User;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.AuthService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.AuthService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service;
 
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.response.AuthResponse;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.AuthenticationRequest;

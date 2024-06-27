@@ -1,14 +1,14 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.impl;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.PlayerNotFoundException;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.UsernameAlreadyExistsException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.PlayerNotFoundException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.UsernameAlreadyExistsException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.mapper.PlayerMapper;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Player;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.PlayerService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.PlayerService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

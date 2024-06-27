@@ -1,10 +1,10 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.controllers;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.controller;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.NoPermissionsException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.NoPermissionsException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.GameService;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.PlayerService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.GameService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.PlayerService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

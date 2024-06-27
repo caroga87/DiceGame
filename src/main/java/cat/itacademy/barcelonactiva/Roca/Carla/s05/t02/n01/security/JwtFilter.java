@@ -1,6 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.security;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.JwtService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.service.JwtService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

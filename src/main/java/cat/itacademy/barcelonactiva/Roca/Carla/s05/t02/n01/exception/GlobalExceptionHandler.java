@@ -1,15 +1,14 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.controllers;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@RestControllerAdvice
-public class ExceptionController extends ResponseEntityExceptionHandler {
+@ControllerAdvice
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PlayerNotFoundException.class)
     @ResponseStatus (HttpStatus.NOT_FOUND)

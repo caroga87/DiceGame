@@ -1,6 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.UserNotFoundException;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exception.UserNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import lombok.RequiredArgsConstructor;
