@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -40,8 +40,8 @@ public class SecurityConfig {
     private RequestMatcher publicEndpoint (){
         return new OrRequestMatcher(
                 //new AntPathRequestMatcher("/players/**"),
-                new AntPathRequestMatcher("/auth/**"),
-                new AntPathRequestMatcher("/auth/register")
+                new AntPathRequestMatcher("/auth/**")
+                //new AntPathRequestMatcher("/auth/register")
         );
 
     }

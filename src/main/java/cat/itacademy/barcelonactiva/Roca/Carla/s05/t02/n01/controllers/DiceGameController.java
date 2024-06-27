@@ -1,6 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.controllers;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.NoPermissions;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.NoPermissionsException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.GameService;
@@ -44,7 +44,7 @@ public class DiceGameController {
     @DeleteMapping(Constant.DELETE_GAME)
     public ResponseEntity<?> deleteGamesByPlayerId(@PathVariable Integer playerId, Authentication authentication) {
         if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
-            throw new NoPermissions("You don't have permissions");
+            throw new NoPermissionsException(Constant.FORBIDDEN);
         }
         gameService.deleteGameById(playerId);
         return new ResponseEntity<>("Games deleted.", HttpStatus.OK);
@@ -52,7 +52,7 @@ public class DiceGameController {
     @DeleteMapping(Constant.DELETE_PLAYER)
     public ResponseEntity<?> deletePlayerById(@PathVariable Integer playerId, Authentication authentication) {
         if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
-            throw new NoPermissions("You don't have permissions");
+            throw new NoPermissionsException(Constant.FORBIDDEN);
         }
         playerService.deletePlayer(playerId);
         return new ResponseEntity<>("Player deleted.", HttpStatus.OK);

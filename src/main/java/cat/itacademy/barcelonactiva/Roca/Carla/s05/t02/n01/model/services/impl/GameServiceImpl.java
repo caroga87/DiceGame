@@ -1,6 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.GameNotFound;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.GameNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.mapper.GameMapper;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Game;
@@ -46,7 +46,7 @@ public class GameServiceImpl implements GameService {
                 () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
         List <Game> games = gameRepository.findByPlayer(player);
         if (games.isEmpty()){
-            throw new GameNotFound("This player has not games");
+            throw new GameNotFoundException(Constant.GAME_NOT_FOUND);
         }
         return gameRepository.findByPlayer(player).stream()
                 .map(gameMapper::toGameDTO)
@@ -60,7 +60,7 @@ public class GameServiceImpl implements GameService {
                 () -> new PlayerNotFoundException(Constant.PLAYER_NOT_FOUND +player_id));
         List <Game> games = gameRepository.findByPlayer(player);
         if (games.isEmpty()){
-            throw new GameNotFound("This player has not games");
+            throw new GameNotFoundException(Constant.GAME_NOT_FOUND);
         }
         gameRepository.deleteByPlayer(player);
     }

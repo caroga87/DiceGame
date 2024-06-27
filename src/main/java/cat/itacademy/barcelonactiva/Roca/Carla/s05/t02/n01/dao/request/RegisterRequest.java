@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request;
 
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Role;
 import lombok.AllArgsConstructor;

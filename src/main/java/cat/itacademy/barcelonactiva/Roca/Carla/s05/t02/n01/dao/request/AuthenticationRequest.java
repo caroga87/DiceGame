@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao;
+package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthResponse {
-    private String token;
-
+public class AuthenticationRequest {
+    private String email;
+    private String password;
 }

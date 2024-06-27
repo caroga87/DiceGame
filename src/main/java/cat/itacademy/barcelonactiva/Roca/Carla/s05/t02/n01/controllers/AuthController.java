@@ -1,8 +1,8 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.controllers;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.AuthResponse;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.AuthenticationRequest;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.RegisterRequest;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.response.AuthResponse;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.AuthenticationRequest;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.RegisterRequest;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.AuthService;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import lombok.RequiredArgsConstructor;

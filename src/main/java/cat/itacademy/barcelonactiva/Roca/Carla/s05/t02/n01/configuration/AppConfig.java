@@ -1,6 +1,6 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.configuration;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.UserNotFound;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.UserNotFoundException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,7 +26,7 @@ public class AppConfig {
     public UserDetailsService userDetailsService (){
 //        return username -> userRepository.findUserByUsername(username)
 //                .orElseThrow(() -> new UsernameNotFoundException(Constant.USERNAME_NOT_FOUND +username));
-        return email -> userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFound("Not user found with this email"));
+        return email -> userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFoundException(Constant.USER_NOT_FOUND));
     }
 
     @Bean

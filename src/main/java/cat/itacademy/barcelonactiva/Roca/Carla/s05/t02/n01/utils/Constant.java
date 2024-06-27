@@ -9,6 +9,10 @@ public class Constant {
     public static final String PLAYER_NOT_FOUND = "Player not found with ID: ";
     public static final String USERNAME_ALREADY_EXISTS = "Username already exists: ";
     public static final String USERNAME_NOT_FOUND= "User not found with username: ";
+    public static final String EMAIL_ALREADY_EXISTS = "This email already exists";
+    public static final String USER_NOT_FOUND = "User not found";
+    public static final String FORBIDDEN = "You don't have permissions";
+    public static final String GAME_NOT_FOUND = "This player has not games";
 
     //URL's
     public static final String HOME = "/players";

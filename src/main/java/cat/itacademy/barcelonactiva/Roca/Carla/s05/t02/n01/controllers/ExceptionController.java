@@ -27,19 +27,19 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @ExceptionHandler(GameNotFound.class)
+    @ExceptionHandler(GameNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<?> handleGameNotFound (GameNotFound e){
+    public ResponseEntity<?> handleGameNotFoundException (GameNotFoundException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler (EmailAlreadyExists.class)
+    @ExceptionHandler (EmailAlreadyExistsException.class)
     @ResponseStatus (HttpStatus.CONFLICT)
-    public ResponseEntity<?> handleEmailAlreadyExists (EmailAlreadyExists e){
+    public ResponseEntity<?> handleEmailAlreadyExistsException (EmailAlreadyExistsException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
-    @ExceptionHandler (NoPermissions.class)
+    @ExceptionHandler (NoPermissionsException.class)
     @ResponseStatus (HttpStatus.FORBIDDEN)
-    public ResponseEntity<?> handleNoPermissions (NoPermissions e) {
+    public ResponseEntity<?> handleNoPermissionsException (NoPermissionsException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
     }
 

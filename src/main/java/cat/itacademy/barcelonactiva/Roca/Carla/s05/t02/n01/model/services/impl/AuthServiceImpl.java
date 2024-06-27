@@ -1,15 +1,16 @@
 package cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.impl;
 
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.EmailAlreadyExists;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.EmailAlreadyExistsException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.exceptions.InvalidCredentialException;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.Role;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.JwtService;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.AuthResponse;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.AuthenticationRequest;
-import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.RegisterRequest;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.response.AuthResponse;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.AuthenticationRequest;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.dao.request.RegisterRequest;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.domain.User;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.repository.UserRepository;
 import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.model.services.AuthService;
+import cat.itacademy.barcelonactiva.Roca.Carla.s05.t02.n01.utils.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())){
-            throw new EmailAlreadyExists("This email already exists");
+            throw new EmailAlreadyExistsException(Constant.EMAIL_ALREADY_EXISTS);
         }
         User user = User.builder()
                 .name(request.getName())
