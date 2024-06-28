@@ -5,41 +5,73 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler (EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorMessage> handleEmailAlreadyExistsException (EmailAlreadyExistsException e,WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.CONFLICT.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(GameNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleGameNotFoundException (GameNotFoundException e, WebRequest request){
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.NOT_FOUND.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (NoPermissionsException.class)
+    public ResponseEntity<ErrorMessage> handleNoPermissionsException (NoPermissionsException e, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(InvalidCredentialException.class)
+    public ResponseEntity<ErrorMessage> handleInvalidCredentialException(InvalidCredentialException e, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.UNAUTHORIZED.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.UNAUTHORIZED);
+    }
     @ExceptionHandler(PlayerNotFoundException.class)
-    @ResponseStatus (HttpStatus.NOT_FOUND)
-    public ResponseEntity<?> handlePlayerNotFoundException(PlayerNotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorMessage> handlePlayerNotFoundException(PlayerNotFoundException e, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.NOT_FOUND.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UsernameAlreadyExistsException.class)
-    @ResponseStatus (HttpStatus.CONFLICT)
-    public ResponseEntity<?> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-    }
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    @ExceptionHandler(GameNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<?> handleGameNotFoundException (GameNotFoundException e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
-    @ExceptionHandler (EmailAlreadyExistsException.class)
-    @ResponseStatus (HttpStatus.CONFLICT)
-    public ResponseEntity<?> handleEmailAlreadyExistsException (EmailAlreadyExistsException e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-    }
-    @ExceptionHandler (NoPermissionsException.class)
-    @ResponseStatus (HttpStatus.FORBIDDEN)
-    public ResponseEntity<?> handleNoPermissionsException (NoPermissionsException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+    public ResponseEntity<ErrorMessage> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException e, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.CONFLICT.value(),
+                new Date(),
+                e.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.CONFLICT);
     }
 
 }

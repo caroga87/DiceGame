@@ -26,22 +26,20 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
 
-    @Bean //cadena de filtrado antes del proceso de verificación
-    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(publicEndpoint()).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
-    private RequestMatcher publicEndpoint (){
+    private RequestMatcher publicEndpoint() {
         return new OrRequestMatcher(
-                //new AntPathRequestMatcher("/players/**"),
                 new AntPathRequestMatcher("/auth/**")
-                //new AntPathRequestMatcher("/auth/register")
         );
 
     }

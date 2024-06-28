@@ -58,7 +58,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    @Transactional // per si hi ha un error a l'hora d'executar els canvis, farà rollback per tal de que no es realitzin canvis parcials a la bd
+    @Transactional
     public void updatePlayerUsername(Integer id, String newUsername){
 
         Player player = playerRepository.findById(id).orElseThrow(
@@ -84,8 +84,8 @@ public class PlayerServiceImpl implements PlayerService {
     public List<PlayerDTO> playerRankingList() {
         List<PlayerDTO> players = getAllPlayers();
         return players.stream()
-                .filter(player -> player.getPercentageWonGame() != null) // per a que no tingui en compte jugador amb percentatges nulls
-                .sorted(Comparator.comparingDouble(PlayerDTO::getPercentageWonGame).reversed()) // Ordena de major a menor
+                .filter(player -> player.getPercentageWonGame() != null)
+                .sorted(Comparator.comparingDouble(PlayerDTO::getPercentageWonGame).reversed())
                 .collect(Collectors.toList());
     }
 

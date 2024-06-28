@@ -21,9 +21,6 @@ public class Player {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer playerId;
 
-    //@Builder.Default
-    //private String name = "ANONYMOUS";
-
     @Builder.Default
     @Column (name= "username")
     private String username= "ANONYMOUS";
@@ -36,8 +33,5 @@ public class Player {
     @OneToMany (mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Game> rollDice= new ArrayList<>();
 
-//    @ManyToOne
-//    @JoinColumn (name = "user_id", referencedColumnName = "userId")
-//    private User user;
 
 }

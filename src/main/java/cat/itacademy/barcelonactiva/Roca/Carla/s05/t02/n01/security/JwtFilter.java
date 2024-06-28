@@ -30,20 +30,20 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, // lo que el cliente pide en la peticion
-                                    @NonNull HttpServletResponse response, // lo que nosotros entregamos al cliente
-                                    @NonNull FilterChain filterChain) throws ServletException, IOException { // continua con el proceso de la solicitud
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String autHeader = request.getHeader(Constant.AUTHORIZATION_HEADER);
         final String jwt;
         final String userEmail;
-        if (autHeader == null || !autHeader.startsWith(Constant.BEARER_PREFIX)){ // verifica si envia un jwt (header de autorizacion) o si envia las credenciales empezando por bearer, si no lo hace se le retorna un error 403
+        if (autHeader == null || !autHeader.startsWith(Constant.BEARER_PREFIX)){
             filterChain.doFilter(request, response);
             return; //
         }
-        jwt = autHeader.substring(Constant.BEARER_PREFIX.length()); // si envia un jwt, coja a partir del valor 7, sin tener en cuenta la palabra bearer
+        jwt = autHeader.substring(Constant.BEARER_PREFIX.length());
         userEmail = jwtService.getUsername(jwt);
-        if (userEmail !=null && SecurityContextHolder.getContext().getAuthentication() == null){ // valida que el userEmail no sea nulo, y que en la peticion no esté ya autenticado
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail); // va directo a la bd para verificar que existe
+        if (userEmail !=null && SecurityContextHolder.getContext().getAuthentication() == null){
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.validateToken (jwt, userDetails)){
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,

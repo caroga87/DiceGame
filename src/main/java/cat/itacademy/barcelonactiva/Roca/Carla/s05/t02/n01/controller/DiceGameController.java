@@ -32,7 +32,7 @@ public class DiceGameController {
     @PutMapping (Constant.UPDATE)
     public ResponseEntity <Void> updatePlayerName (@PathVariable Integer playerId, @RequestBody String newName){
         playerService.updatePlayerUsername(playerId, newName);
-        return ResponseEntity.noContent().build(); // ResponseEntity.status (HttpStatus.OK).body(
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping(Constant.CREATE_GAME)

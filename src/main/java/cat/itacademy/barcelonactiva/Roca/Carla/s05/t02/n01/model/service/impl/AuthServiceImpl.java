@@ -32,18 +32,20 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse register(RegisterRequest request) {
+        if (request.getEmail().isEmpty() || request.getPassword().isEmpty()){
+            throw new IllegalArgumentException("Email or password can not be null");
+        }
         if (userRepository.existsByEmail(request.getEmail())){
             throw new EmailAlreadyExistsException(Constant.EMAIL_ALREADY_EXISTS);
         }
         User user = User.builder()
                 .name(request.getName())
-                //.username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role((request.getName().startsWith("admin") ? Role.ADMIN : Role.USER))
                 .build();
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -56,8 +58,8 @@ public class AuthServiceImpl implements AuthService {
                 request.getEmail(),
                 request.getPassword()
         ));
-        var user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(()-> new InvalidCredentialException("Invalid email or password"));
-        var jwtToken = jwtService.generateToken(user);
+        User user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(()-> new InvalidCredentialException("Invalid email"));
+        String jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder().token(jwtToken).build();
 
     }

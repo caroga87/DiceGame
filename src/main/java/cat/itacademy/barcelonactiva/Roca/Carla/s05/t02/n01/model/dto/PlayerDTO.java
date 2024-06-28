@@ -10,7 +10,6 @@ import java.util.List;
 public class PlayerDTO {
 
     private Integer id;
-    //private String name;
     private String username;
     private List<GameDTO> rollDice;
     private Double percentageWonGame;

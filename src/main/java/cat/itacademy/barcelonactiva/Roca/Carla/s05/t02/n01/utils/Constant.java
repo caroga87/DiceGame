@@ -34,5 +34,5 @@ public class Constant {
     public static final int TOKEN_EXPIRATION_TIME = 24*60*60*1000;
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer";
-    public static final String [] AUTH_WHITELIST = { "/register" , "/login"};
+
 }
